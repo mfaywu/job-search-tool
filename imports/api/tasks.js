@@ -17,6 +17,7 @@ if (Meteor.isServer) {
 
 Meteor.methods({
     'tasks.insert'(text, date) {
+        date = new Date(date);
         check(text, String);
         check(date, Date);
 
@@ -44,6 +45,7 @@ Meteor.methods({
         Tasks.remove(taskId);
     },
     'tasks.update'(text, date) {
+        date = new Date(date);
         check(text, String);
         check(data, Date);
 

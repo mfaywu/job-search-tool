@@ -1,14 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { createContainer } from 'meteor/react-meteor-data';
-import {Meteor} from 'meteor/meteor';
+import { Meteor } from 'meteor/meteor';
 
 import { Button } from 'react-bootstrap';
 
 import { Jobs } from '../api/jobs.js';
+import { Tasks } from '../api/tasks.js';
 
 import Job from './Job.jsx';
 import AddJob from './AddJob.jsx';
+import Task from './Task.jsx';
+import AddTask from './AddTask.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 
 class App extends Component {
@@ -17,6 +20,12 @@ class App extends Component {
 
     this.state = {
     };
+  }
+
+  renderTasks() {
+    return this.props.tasks.map((task) => (
+      <Task key={task._id} task={task} />
+    ));
   }
 
   renderJobs() {
@@ -35,6 +44,18 @@ class App extends Component {
         </header>
         { this.props.currentUser ?
           <div>
+
+            <AddTask />
+            <table>
+              <tbody>
+                <th>Task</th>
+                <th>Do by</th>
+                <th></th>
+                { this.renderTasks() }
+              </tbody>
+            </table>
+
+
             <AddJob />
             <table>
               <tbody>
@@ -45,7 +66,7 @@ class App extends Component {
                 <th>State</th>
                 <th></th>
                 <th></th>
-                {this.renderJobs() }
+                { this.renderJobs() }
               </tbody>
             </table>
           </div> : ''
@@ -57,13 +78,16 @@ class App extends Component {
 
 App.propTypes = {
   jobs: PropTypes.array.isRequired,
+  tasks: PropTypes.array.isRequired,
   currentUser: PropTypes.object,
 };
 
 export default createContainer(() => {
   Meteor.subscribe('jobs');
+  Meteor.subscribe('tasks');
   return {
     jobs: Jobs.find({}, { sort: { createdAt: -1 } }).fetch(),
+    tasks: Tasks.find({}, { sort: { date: -1 } }).fetch(),
     currentUser: Meteor.user(),
   };
 }, App);
