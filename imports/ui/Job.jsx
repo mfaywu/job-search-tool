@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import EditJob from './EditJob.jsx';
  
 // Job component - represents a single job
 export default class Job extends Component {
@@ -9,6 +10,7 @@ export default class Job extends Component {
             <td>{this.props.job.position}</td>
             <td>{this.props.job.location}</td>
             <td>{this.props.job.state}</td>
+            <td><EditJob job={this.props.job}/></td>
       </tr>
     );
   }

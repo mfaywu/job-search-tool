@@ -37,6 +37,7 @@ class App extends Component {
             <th>Position</th>
             <th>Location</th>
             <th>State</th>
+            <th>Edit</th>
           {this.renderJobs()}
           </tbody>
         </table>
