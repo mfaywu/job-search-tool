@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Modal, Button, FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
+import TagsInput from 'react-tagsinput';
+import 'react-tagsinput/react-tagsinput.css';
 
 import { Jobs } from '../api/jobs.js';
 
@@ -11,15 +13,16 @@ export default class EditJob extends Component {
 
         this.state = {
             display: false,
+            tags: this.props.job.tech_stack ? this.props.job.tech_stack : [],
         };
     }
 
     close() {
-        this.setState({ display: false });
+        this.setState({ display: false, tags: this.state.tags });
     }
 
     open() {
-        this.setState({ display: true });
+        this.setState({ display: true, tags: this.state.tags });
     }
 
     handleSubmit(event) {
@@ -33,14 +36,17 @@ export default class EditJob extends Component {
         location = location == '' ? this.props.job.location : location;
         let state = ReactDOM.findDOMNode(this.refs.stateInput).value.trim();
         state = state == '' ? this.props.job.state : state;
+        const tech_stack = this.state.tags;
 
         const id = this.props.job._id;
-        
-        Meteor.call('jobs.update', id, company, position, location, state);
+
+        Meteor.call('jobs.update', id, company, position, location, state, tech_stack);
 
         this.close();
     }
-
+    changeTags(tags) {
+        this.setState({ display: this.state.display, tags: tags });
+    }
 
     render() {
         return (
@@ -64,6 +70,10 @@ export default class EditJob extends Component {
                                 <FormControl ref="locationInput" type="text" placeholder={this.props.job.location}/>
                             </FormGroup>
                             <FormGroup>
+                                <ControlLabel>Tech Stack</ControlLabel>
+                                <TagsInput value={this.state.tags ? this.state.tags : []} onChange={this.changeTags.bind(this) }/>
+                            </FormGroup>
+                            <FormGroup>
                                 <ControlLabel>State</ControlLabel>
                                 <FormControl ref="stateInput" componentClass="select" placeholder={this.props.job.state}>
                                     <option value="Not Started">Not Started</option>
@@ -81,7 +91,7 @@ export default class EditJob extends Component {
                     <Modal.Footer>
                         <Button bsStyle="info"
                             type="submit"
-                            onClick={this.handleSubmit.bind(this)}>
+                            onClick={this.handleSubmit.bind(this) }>
                             Edit Job
                         </Button>
                         <Button onClick={this.close.bind(this) }>Cancel</Button>
@@ -99,5 +109,5 @@ export default class EditJob extends Component {
 }
 
 EditJob.propTypes = {
-  job: PropTypes.object.isRequired,
+    job: PropTypes.object.isRequired,
 };

@@ -16,11 +16,12 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-    'jobs.insert'(company, position, location, state) {
+    'jobs.insert'(company, position, location, state, tech_stack) {
         check(company, String);
         check(position, String);
         check(location, String);
         check(state, String);
+        check(tech_stack, [String]);
 
         // Make sure the user is logged in before inserting a task
         if (!this.userId) {
@@ -32,6 +33,7 @@ Meteor.methods({
             position,
             location,
             state,
+            tech_stack,
             createdAt: new Date(),
             owner: this.userId,
             username: Meteor.users.findOne(this.userId).username,
@@ -47,12 +49,13 @@ Meteor.methods({
 
         Jobs.remove(jobId);
     },
-    'jobs.update'(jobId, company, position, location, state) {
+    'jobs.update'(jobId, company, position, location, state, tech_stack) {
         check(jobId, String);
         check(company, String);
         check(position, String);
         check(location, String);
         check(state, String);
+        check(tech_stack, [String]);
 
         const job = Jobs.findOne(jobId);
         if (!this.userId || job.owner != this.userId) {
@@ -65,6 +68,7 @@ Meteor.methods({
                 position,
                 location,
                 state,
+                tech_stack,
             }
         });
     },

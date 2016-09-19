@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import EditJob from './EditJob.jsx';
 import { Meteor } from 'meteor/meteor';
+import TagsInput from 'react-tagsinput';
+import 'react-tagsinput/react-tagsinput.css' 
 
 import { Jobs } from '../api/jobs.js';
 
@@ -10,12 +12,17 @@ export default class Job extends Component {
     Meteor.call('jobs.remove', this.props.job._id);
   }
 
+  nothing() {
+    //do nothing
+  }
+
   render() {
     return (
       <tr>
         <td>{this.props.job.company}</td>
         <td>{this.props.job.position}</td>
         <td>{this.props.job.location}</td>
+        <td><TagsInput disabled={true} value={this.props.job.tech_stack ? this.props.job.tech_stack : []} onChange={this.nothing.bind(this)}/></td>
         <td>{this.props.job.state}</td>
         <td><EditJob job={this.props.job}/></td>
         <td>

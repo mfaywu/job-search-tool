@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Modal, Button, FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
 import { Meteor } from 'meteor/meteor';
+import TagsInput from 'react-tagsinput';
+import 'react-tagsinput/react-tagsinput.css' 
 
 import { Jobs } from '../api/jobs.js';
 
@@ -11,15 +13,16 @@ export default class AddJob extends Component {
 
         this.state = {
             display: false,
+            tags: [],
         };
     }
 
     close() {
-        this.setState({ display: false });
+        this.setState({ display: false, tags: this.state.tags });
     }
 
     open() {
-        this.setState({ display: true });
+        this.setState({ display: true, tags: this.state.tags });
     }
 
     handleSubmit(event) {
@@ -29,12 +32,15 @@ export default class AddJob extends Component {
         const position = ReactDOM.findDOMNode(this.refs.positionInput).value.trim();
         const location = ReactDOM.findDOMNode(this.refs.locationInput).value.trim();
         const state = ReactDOM.findDOMNode(this.refs.stateInput).value.trim();
+        const tech_stack = this.state.tags;
 
-        Meteor.call('jobs.insert', company, position, location, state);
+        Meteor.call('jobs.insert', company, position, location, state, tech_stack);
 
         this.close();
     }
-
+    changeTags(tags) {
+        this.setState( {display: this.state.display, tags: tags});
+    }
 
     render() {
         return (
@@ -58,6 +64,10 @@ export default class AddJob extends Component {
                                 <FormControl ref="locationInput" type="text" placeholder="City, State" />
                             </FormGroup>
                             <FormGroup>
+                                <ControlLabel>Tech Stack</ControlLabel>
+                                <TagsInput value={this.state.tags ? this.state.tags : []} onChange={this.changeTags.bind(this)}/>
+                            </FormGroup>
+                            <FormGroup>
                                 <ControlLabel>State</ControlLabel>
                                 <FormControl ref="stateInput" componentClass="select" placeholder="Select">
                                     <option value="Not Started">Not Started</option>
@@ -75,7 +85,7 @@ export default class AddJob extends Component {
                     <Modal.Footer>
                         <Button bsStyle="info"
                             type="submit"
-                            onClick={this.handleSubmit.bind(this)}>
+                            onClick={this.handleSubmit.bind(this) }>
                             Add Job
                         </Button>
                         <Button onClick={this.close.bind(this) }>Cancel</Button>

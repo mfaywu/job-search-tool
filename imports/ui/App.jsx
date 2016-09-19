@@ -41,6 +41,7 @@ class App extends Component {
                 <th>Company</th>
                 <th>Position</th>
                 <th>Location</th>
+                <th>Tech Stack</th>
                 <th>State</th>
                 <th></th>
                 <th></th>
