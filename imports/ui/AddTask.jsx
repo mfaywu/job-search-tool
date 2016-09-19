@@ -29,8 +29,9 @@ export default class AddTask extends Component {
 
         const textInput = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
         const dateInput = ReactDOM.findDOMNode(this.refs.dateInput).value.trim();
+        const companyInput = ReactDOM.findDOMNode(this.refs.companyInput).value.trim();
 
-        Meteor.call('tasks.insert', textInput, dateInput);
+        Meteor.call('tasks.insert', textInput, dateInput, companyInput);
 
         this.close();
     }
@@ -54,6 +55,10 @@ export default class AddTask extends Component {
                             <FormGroup>
                                 <ControlLabel>Do by</ControlLabel>
                                 <input ref="dateInput" type="date" placeholder="" />
+                            </FormGroup>
+                            <FormGroup>
+                                <ControlLabel>Company</ControlLabel>
+                                <FormControl ref="companyInput" type="text" placeholder="Ex: Microsoft" />
                             </FormGroup>
                         </form>
                     </Modal.Body>

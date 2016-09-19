@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import EditJob from './EditJob.jsx';
 import { Meteor } from 'meteor/meteor';
 import TagsInput from 'react-tagsinput';
-import 'react-tagsinput/react-tagsinput.css' 
+import 'react-tagsinput/react-tagsinput.css'
 
 import { Jobs } from '../api/jobs.js';
 
@@ -16,13 +16,21 @@ export default class Job extends Component {
     //do nothing
   }
 
+  renderTasks() {
+    if (this.props.job.job_tasks) {
+      return this.props.job.job_tasks.map((task) => (
+        <li>task</li>
+      ));
+    }
+  }
+
   render() {
     return (
       <tr>
         <td>{this.props.job.company}</td>
         <td>{this.props.job.position}</td>
         <td>{this.props.job.location}</td>
-        <td><TagsInput disabled={true} value={this.props.job.tech_stack ? this.props.job.tech_stack : []} onChange={this.nothing.bind(this)}/></td>
+        <td><TagsInput disabled={true} value={this.props.job.tech_stack ? this.props.job.tech_stack : []} onChange={this.nothing.bind(this) }/></td>
         <td>{this.props.job.state}</td>
         <td><EditJob job={this.props.job}/></td>
         <td>
@@ -30,6 +38,7 @@ export default class Job extends Component {
             &times;
           </button>
         </td>
+        <td>{this.renderTasks() }</td>
       </tr>
     );
   }
