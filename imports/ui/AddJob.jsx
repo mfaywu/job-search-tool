@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Modal, Button, FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
+import { Meteor } from 'meteor/meteor';
 
 import { Jobs } from '../api/jobs.js';
 
@@ -35,6 +36,8 @@ export default class AddJob extends Component {
             location,
             state,
             createdAt: new Date(),
+            owner: Meteor.userId(),
+            username: Meteor.user().username,
         });
 
         this.close();
