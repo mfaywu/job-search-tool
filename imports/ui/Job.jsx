@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import EditJob from './EditJob.jsx';
+import { Meteor } from 'meteor/meteor';
 
 import { Jobs } from '../api/jobs.js';
 
 // Job component - represents a single job
 export default class Job extends Component {
   deleteThisJob() {
-    Jobs.remove(this.props.job._id);
+    Meteor.call('jobs.remove', this.props.job._id);
   }
 
   render() {

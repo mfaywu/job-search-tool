@@ -60,6 +60,7 @@ App.propTypes = {
 };
 
 export default createContainer(() => {
+  Meteor.subscribe('jobs');
   return {
     jobs: Jobs.find({}, { sort: { createdAt: -1 } }).fetch(),
     currentUser: Meteor.user(),

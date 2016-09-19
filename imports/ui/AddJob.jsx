@@ -30,15 +30,7 @@ export default class AddJob extends Component {
         const location = ReactDOM.findDOMNode(this.refs.locationInput).value.trim();
         const state = ReactDOM.findDOMNode(this.refs.stateInput).value.trim();
 
-        Jobs.insert({
-            company,
-            position,
-            location,
-            state,
-            createdAt: new Date(),
-            owner: Meteor.userId(),
-            username: Meteor.user().username,
-        });
+        Meteor.call('jobs.insert', company, position, location, state);
 
         this.close();
     }
