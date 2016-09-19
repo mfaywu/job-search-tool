@@ -1,28 +1,24 @@
 import React, { Component, PropTypes } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import ReactDOM from 'react-dom';
+import { Modal, Button, FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
 
 import { Jobs } from '../api/jobs.js';
 
-// Job component - represents a single job
 export default class AddJob extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            display: true,
+            display: false,
         };
     }
 
-    showAddJob() {
-        this.state.display = !this.state.display;
-    }
-
     close() {
-        this.setState( {display: false });
+        this.setState({ display: false });
     }
 
     open() {
-        this.setState( {display: true});
+        this.setState({ display: true });
     }
 
     handleSubmit(event) {
@@ -41,31 +37,53 @@ export default class AddJob extends Component {
             createdAt: new Date(),
         });
 
-        ReactDOM.findDOMNode(this.refs.companyInput).value = '';
-        ReactDOM.findDOMNode(this.refs.positionInput).value = '';
-        ReactDOM.findDOMNode(this.refs.locationInput).value = '';
-        ReactDOM.findDOMNode(this.refs.stateInput).value = '';
+        this.close();
     }
+
 
     render() {
         return (
             <div>
-                <Modal show={this.state.display} onHide={this.close.bind(this)}>
+                <Modal show={this.state.display} onHide={this.close.bind(this) }>
                     <Modal.Header closeButton>
-                        <Modal.Title>Modal heading</Modal.Title>
+                        <Modal.Title>Add a new job</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <h4>Text in a modal</h4>
-                        <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
-
-                        <h4>Popover in a modal</h4>
-
-                        <h4>Overflowing text to show scroll behavior</h4>
-                        <p>Cras mattis consectetur purus sit amet fermentum.Cras justo odio, dapibus ac facilisis in, egestas eget quam.Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-
+                        <form>
+                            <FormGroup>
+                                <ControlLabel>Company</ControlLabel>
+                                <FormControl ref="companyInput" type="text" placeholder="Name" />
+                            </FormGroup>
+                            <FormGroup>
+                                <ControlLabel>Position</ControlLabel>
+                                <FormControl ref="positionInput" type="text" placeholder="Title" />
+                            </FormGroup>
+                            <FormGroup>
+                                <ControlLabel>Location</ControlLabel>
+                                <FormControl ref="locationInput" type="text" placeholder="City, State" />
+                            </FormGroup>
+                            <FormGroup>
+                                <ControlLabel>State</ControlLabel>
+                                <FormControl ref="stateInput" componentClass="select" placeholder="Select">
+                                    <option value="Not Started">Not Started</option>
+                                    <option value="Applied">Applied</option>
+                                    <option value="Phone Screen">Phone Screen</option>
+                                    <option value="Onsite">OnSite</option>
+                                    <option value="Got Offer">Got Offer</option>
+                                    <option value="No Offer">No Offer</option>
+                                    <option value="Accepted">Accepted</option>
+                                    <option value="Declined">Declined</option>
+                                </FormControl>
+                            </FormGroup>
+                        </form>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button onClick={this.close.bind(this)}>Close</Button>
+                        <Button bsStyle="info"
+                            type="submit"
+                            onClick={this.handleSubmit.bind(this)}>
+                            Add Job
+                        </Button>
+                        <Button onClick={this.close.bind(this) }>Cancel</Button>
                     </Modal.Footer>
                 </Modal>
                 <Button
@@ -73,10 +91,7 @@ export default class AddJob extends Component {
                     onClick={ this.open.bind(this) }>
                     Add New
                 </Button>
-                </div>
+            </div>
         );
     }
-}
-
-AddJob.propTypes = {
 }

@@ -28,7 +28,6 @@ class App extends Component {
       <div className="container">
         <header>
           <h1>Job Search Tool</h1>
-
           <AddJob />
         </header> 
  
