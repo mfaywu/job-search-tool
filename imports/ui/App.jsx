@@ -3,15 +3,13 @@ import ReactDOM from 'react-dom';
 import { createContainer } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
 
-import { Button } from 'react-bootstrap';
+import { Navbar, Tabs, Tab, Button } from 'react-bootstrap';
 
 import { Jobs } from '../api/jobs.js';
 import { Tasks } from '../api/tasks.js';
 
-import Job from './Job.jsx';
-import AddJob from './AddJob.jsx';
-import Task from './Task.jsx';
-import AddTask from './AddTask.jsx';
+import HomeTab from './HomeTab.jsx';
+import Welcome from './Welcome.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 
 class App extends Component {
@@ -22,55 +20,30 @@ class App extends Component {
     };
   }
 
-  renderTasks() {
-    return this.props.tasks.map((task) => (
-      <Task key={task._id} task={task} />
-    ));
-  }
-
-  renderJobs() {
-    return this.props.jobs.map((job) => (
-      <Job key={job._id} job={job} />
-    ));
-  }
-
   render() {
     return (
-      <div className="container">
-        <header>
-          <h1>Job Search Tool</h1>
-          <AccountsUIWrapper />
+      <div>
+        <Navbar inverse>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <a href="#">Job Search Tool</a>
+            </Navbar.Brand>
+            <AccountsUIWrapper />
+          </Navbar.Header>
+        </Navbar>
+        <div className="container">
 
-        </header>
-        { this.props.currentUser ?
-          <div>
-
-            <AddTask />
-            <table>
-              <tbody>
-                <th>Task</th>
-                <th>Do by</th>
-                <th></th>
-                { this.renderTasks() }
-              </tbody>
-            </table>
-
-
-            <AddJob />
-            <table>
-              <tbody>
-                <th>Company</th>
-                <th>Position</th>
-                <th>Location</th>
-                <th>Tech Stack</th>
-                <th>State</th>
-                <th></th>
-                <th></th>
-                { this.renderJobs() }
-              </tbody>
-            </table>
-          </div> : ''
-        }
+          <Tabs defaultActiveKey={1}>
+            <Tab eventKey={1} title="Home">
+              { this.props.currentUser ?
+                <HomeTab jobs={this.props.jobs} tasks={this.props.tasks} />
+                : 
+                <Welcome />
+              }
+            </Tab>
+            <Tab eventKey={2} title="Interview Prep">Interview Prep</Tab>
+          </Tabs>
+        </div>
       </div>
     );
   }
