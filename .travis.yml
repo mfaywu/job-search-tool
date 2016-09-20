@@ -5,6 +5,7 @@ language: node_js
 before_install:
   - curl https://install.meteor.com | /bin/sh
   - export PATH="$HOME/.meteor:$PATH"
+  - ./login.sh
  
 cache:
   directories:
@@ -14,6 +15,5 @@ before_script:
   - meteor npm install
 
 after_success:
-  - ./login.sh
   - DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy job-search.meteorapp.com
   - echo "Deployment successful"
