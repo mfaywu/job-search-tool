@@ -92,7 +92,7 @@ export default class EditJob extends Component {
                         <Button bsStyle="info"
                             type="submit"
                             onClick={this.handleSubmit.bind(this) }>
-                            Edit Job
+                            Save
                         </Button>
                         <Button onClick={this.close.bind(this) }>Cancel</Button>
                     </Modal.Footer>
