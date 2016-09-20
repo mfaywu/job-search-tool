@@ -22,6 +22,6 @@ script:
 
 deploy:
   - provider: script
-  - script: travis-deployment.sh
+  - script: DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy --settings settings.json job-search.meteorapp.com
   - on:
     - branch: master
