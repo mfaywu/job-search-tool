@@ -1,10 +1,12 @@
-sudo: false
+sudo: required
  
 language: node_js
  
 before_install:
   - curl https://install.meteor.com | /bin/sh
   - export PATH="$HOME/.meteor:$PATH"
+  - sudo apt-get install expect
+  - ./login.sh $METEOR_USERNAME $METEOR_PASSWORD
  
 cache:
   directories:
@@ -12,10 +14,14 @@ cache:
  
 before_script:
   - meteor npm install
- 
+
 script:
   - meteor add react-meteor-data
   - meteor add accounts-ui accounts-password
   - meteor add dispatch:mocha-phantomjs
   - meteor test --once --driver-package dispatch:mocha-phantomjs
   - meteor build $HOME/build.tgz
+
+after_success:
+  - ./galaxy-deployment.sh
+  
