@@ -23,5 +23,6 @@ script:
   - meteor build $HOME/build.tgz
 
 after_success:
+  - chmod +x galaxy-deployment.sh
   - ./galaxy-deployment.sh
   
