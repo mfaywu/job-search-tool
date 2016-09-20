@@ -5,7 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css';
 
-import { Jobs } from '../api/jobs.js';
+import { Jobs } from '../../api/jobs.js';
 
 export default class EditJob extends Component {
     constructor(props) {
@@ -92,7 +92,7 @@ export default class EditJob extends Component {
                         <Button bsStyle="info"
                             type="submit"
                             onClick={this.handleSubmit.bind(this) }>
-                            Edit Job
+                            Save
                         </Button>
                         <Button onClick={this.close.bind(this) }>Cancel</Button>
                     </Modal.Footer>

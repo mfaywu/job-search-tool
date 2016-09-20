@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
 
-import { Tasks } from '../api/tasks.js';
+import { Tasks } from '../../api/tasks.js';
 
 // Task component - represents a single task
 export default class Task extends Component {
@@ -17,7 +17,7 @@ export default class Task extends Component {
     return (
       <tr>
         <td>{this.props.task.text}</td>
-        <td>{this.props.task.date.toString()}</td>    
+        <td>{this.props.task.date.toISOString().substring(0, 10)}</td>    
         <td>
           <button className="delete" onClick={this.deleteThisTask.bind(this) }>
             &times;
