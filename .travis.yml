@@ -20,8 +20,5 @@ script:
   - meteor test --once --driver-package dispatch:mocha-phantomjs
   - meteor build $HOME/build.tgz
 
-deploy:
-  - provider: script
-  - script: DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy --settings settings.json job-search.meteorapp.com
-  - on:
-    - branch: master
+after_success:
+  - travis_deployment.sh
