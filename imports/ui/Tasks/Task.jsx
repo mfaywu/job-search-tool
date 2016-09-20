@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
 
-import { Tasks } from '../api/tasks.js';
+import { Tasks } from '../../api/tasks.js';
 
 // Task component - represents a single task
 export default class Task extends Component {

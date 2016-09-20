@@ -2,15 +2,15 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 
-import { Button } from 'react-bootstrap';
+import { Button, Table } from 'react-bootstrap';
 
 import { Jobs } from '../api/jobs.js';
 import { Tasks } from '../api/tasks.js';
 
-import Job from './Job.jsx';
-import AddJob from './AddJob.jsx';
-import Task from './Task.jsx';
-import AddTask from './AddTask.jsx';
+import Job from './Jobs/Job.jsx';
+import AddJob from './Jobs/AddJob.jsx';
+import Task from './Tasks/Task.jsx';
+import AddTask from './Tasks/AddTask.jsx';
 
 export default class HomeTab extends Component {
   constructor(props) {
@@ -35,30 +35,39 @@ export default class HomeTab extends Component {
   render() {
     return (
       <div>
+        <br/>
+        <br/>
         <AddTask />
-        <table>
+        <Table striped bordered condensed hover>
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th>Do by</th>
+              <th></th>
+            </tr>
+          </thead>
           <tbody>
-            <th>Task</th>
-            <th>Do by</th>
-            <th></th>
             { this.renderTasks() }
           </tbody>
-        </table>
-
+        </Table>
 
         <AddJob />
-        <table>
+        <Table striped bordered condensed hover>
+          <thead>
+            <tr>
+              <th>Company</th>
+              <th>Position</th>
+              <th>Location</th>
+              <th>Tech Stack</th>
+              <th>State</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
           <tbody>
-            <th>Company</th>
-            <th>Position</th>
-            <th>Location</th>
-            <th>Tech Stack</th>
-            <th>State</th>
-            <th></th>
-            <th></th>
             { this.renderJobs() }
           </tbody>
-        </table>
+        </Table>
       </div>
     );
   };

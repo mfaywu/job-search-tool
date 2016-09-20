@@ -5,7 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css';
 
-import { Jobs } from '../api/jobs.js';
+import { Jobs } from '../../api/jobs.js';
 
 export default class EditJob extends Component {
     constructor(props) {

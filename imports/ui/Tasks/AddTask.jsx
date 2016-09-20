@@ -5,7 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import TagsInput from 'react-tagsinput';
 import 'react-tagsinput/react-tagsinput.css' 
 
-import { Tasks } from '../api/tasks.js';
+import { Tasks } from '../../api/tasks.js';
 
 export default class AddTask extends Component {
     constructor(props) {

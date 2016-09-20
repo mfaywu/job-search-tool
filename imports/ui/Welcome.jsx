@@ -1,6 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
-import { Meteor } from 'meteor/meteor';
 
 import { Jumbotron, Button } from 'react-bootstrap';
 
