@@ -20,6 +20,7 @@ script:
   - meteor add accounts-ui accounts-password
   - meteor remove insecure
   - meteor remove autopublish
+  - meteor npm install --save bcrypt
   - meteor npm install --save classnames
-  - meteor add practicalmeteor:mocha
-  - meteor test --driver-package practicalmeteor:mocha
+  - meteor add dispatch:mocha-phantomjs
+  - meteor test --once --driver-package dispatch:mocha-phantomjs
