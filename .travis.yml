@@ -15,6 +15,13 @@ cache:
 before_script:
   - meteor npm install
 
+script:
+  - meteor add react-meteor-data
+  - meteor add accounts-ui accounts-password
+  - meteor add dispatch:mocha-phantomjs
+  - meteor test --once --driver-package dispatch:mocha-phantomjs
+  - meteor build $HOME/build.tgz
+
 after_success:
-  - DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy job-search.meteorapp.com
-  - echo "Deployment successful"
+  - ./galaxy-deployment.sh
+  
