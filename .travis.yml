@@ -21,5 +21,7 @@ script:
   - meteor build $HOME/build.tgz
 
 deploy:
-  - skip_cleanup: true
-  - DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy --settings settings.json job-search.meteorapp.com
+  - provider: script
+  - script: travis-deployment.sh
+  - on:
+    - branch: master
