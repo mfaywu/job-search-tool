@@ -1,0 +1,7 @@
+{
+  "galaxy.meteor.com": { 
+     "env": { 
+       "MONGO_URL": "mongodb://<dbuser>:<dbpass>@ds035836.mlab.com:35836/mfaywu-db" 
+     } 
+   }
+}
