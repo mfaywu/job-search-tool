@@ -14,6 +14,6 @@ before_script:
   - meteor npm install
 
 after_success:
-  - login.sh
+  - ./login.sh
   - DEPLOY_HOSTNAME=us-east-1.galaxy-deploy.meteor.com meteor deploy job-search.meteorapp.com
   - echo "Deployment successful"
