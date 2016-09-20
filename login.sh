@@ -1,7 +1,11 @@
-#!/usr/bin/expect
+#!/usr/bin/expect -f
+
+set user [lindex $argv 0]
+set pass [lindex $argv 1]
 
 spawn meteor login
 expect "Username: "
-send $METEOR_USERNAME
+send "$user\r"
 expect "Password: "
-send $METEOR_PASSWORD
+send "$pass\r"
+interact

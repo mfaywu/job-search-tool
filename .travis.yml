@@ -6,7 +6,7 @@ before_install:
   - curl https://install.meteor.com | /bin/sh
   - export PATH="$HOME/.meteor:$PATH"
   - sudo apt-get install expect
-  - ./login.sh
+  - ./login.sh $METEOR_USERNAME $METEOR_PASSWORD
  
 cache:
   directories:
