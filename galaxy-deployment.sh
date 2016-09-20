@@ -1,4 +1,4 @@
-#!/usr/bin/bash/env bash
+#!/bin/sh
 
 if [ "$TRAVIS_BRANCH" = "master" ]; then
     echo "Deploying master branch to Galaxy"
