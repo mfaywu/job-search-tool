@@ -3,8 +3,6 @@ node_js:
   - "0.12"
 before_install:
   - "curl -L https://raw.githubusercontent.com/arunoda/travis-ci-laika/master/configure.sh | /bin/sh"
-install:
-  - npm install meteor
 services:
   - mongodb
 env:

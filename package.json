@@ -2,8 +2,7 @@
   "name": "job-search-tool",
   "private": true,
   "scripts": {
-    "start": "meteor run",
-    "test": "meteor test --driver-package practicalmeteor:mocha"
+    "start": "meteor run"
   },
   "dependencies": {
     "bcrypt": "^0.8.7",
