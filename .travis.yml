@@ -14,11 +14,8 @@ before_script:
   - meteor npm install
  
 script:
-  - meteor npm install --save react react-dom
-  - meteor npm install --save react-addons-pure-render-mixin
   - meteor add react-meteor-data
   - meteor add accounts-ui accounts-password
-  - meteor npm install --save classnames
   - meteor add dispatch:mocha-phantomjs
   - meteor test --once --driver-package dispatch:mocha-phantomjs
   - meteor build $HOME/build.tgz
