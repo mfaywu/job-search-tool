@@ -1,0 +1,7 @@
+{
+  "galaxy.meteor.com": { 
+     "env": { 
+       "MONGO_URL": "mongodb://$mfaywu-db-username:$mfaywu-db-password@ds035836.mlab.com:35836/mfaywu-db" 
+     } 
+   }
+}
