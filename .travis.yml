@@ -21,4 +21,4 @@ script:
   - meteor build $HOME/build.tgz
 
 after_success:
-  - travis_deployment.sh
+  - ./travis_deployment.sh
