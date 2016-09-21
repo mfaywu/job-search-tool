@@ -27,8 +27,15 @@ Meteor.methods({
             throw new Meteor.Error('not-authorized');
         }
 
+        const questionItem = Questions.findOne(questionId);
+        if (!questionItem) {
+            throw new Meteor.Error('cannot find question');
+        }
+
         UserQuestions.insert({
-            questionId,
+            question: {questionId: questionId, 
+                question: questionItem.question, 
+                type: questionItem.type},
             answer,
             createdAt: new Date(),
             owner: this.userId,
@@ -49,7 +56,7 @@ Meteor.methods({
             throw new Meteor.Error('not found userQuestion');
         }
         //Also decrease question's stars
-        Meteor.call('questions.removeStar', userQuestion.questionId);
+        Meteor.call('questions.removeStar', userQuestion.question["questionId"]);
 
         UserQuestions.remove(userQuestionId);
     },

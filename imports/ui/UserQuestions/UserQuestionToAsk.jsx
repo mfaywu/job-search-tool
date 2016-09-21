@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { UserQuestions } from '../../api/userQuestions.js';
 
 // Task component - represents a single task
-export default class UserQuestion extends Component {
+export default class UserQuestionBehavioural extends Component {
   deleteThisUserQuestion() {
     Meteor.call('userQuestions.remove', this.props.userQuestion._id);
   }
@@ -16,8 +16,7 @@ export default class UserQuestion extends Component {
   render() {
     return (
       <tr>
-        <td>{this.props.userQuestion.questionId}</td>
-        <td>{this.props.userQuestion.answer}</td>    
+        <td>{ this.props.userQuestion.question ? this.props.userQuestion.question["question"] : "" }</td> 
         <td>
           <button className="delete" onClick={this.deleteThisUserQuestion.bind(this) }>
             &times;
@@ -28,7 +27,7 @@ export default class UserQuestion extends Component {
   }
 }
 
-UserQuestion.propTypes = {
+UserQuestionBehavioural.propTypes = {
   // This component gets the task to display through a React prop.
   // We can use propTypes to indicate it is required
   userQuestion: PropTypes.object.isRequired,

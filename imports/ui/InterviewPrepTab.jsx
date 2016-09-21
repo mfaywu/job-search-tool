@@ -10,7 +10,8 @@ import { UserQuestions } from '../api/userQuestions.js';
 import Question from './Questions/Question.jsx';
 import AddQuestion from './Questions/AddQuestion.jsx';
 import SeeCommunityQuestions from './Questions/SeeCommunityQuestions.jsx';
-import UserQuestion from './UserQuestions/UserQuestion.jsx';
+import UserQuestionBehavioural from './UserQuestions/UserQuestionBehavioural.jsx';
+import UserQuestionToAsk from './UserQuestions/UserQuestionToAsk.jsx';
 import EditUserQuestion from './UserQuestions/EditUserQuestion.jsx';
 
 export default class HomeTab extends Component {
@@ -20,14 +21,18 @@ export default class HomeTab extends Component {
     this.state = {
     };
   }
-  renderQuestions() {
-    return this.props.questions.map((question) => (
-      <Question key={question._id} question={question} />
+  renderUserQuestionsToAsk() {
+    return this.props.userQuestions.map((userQuestion) => (
+      (userQuestion.question && userQuestion.question["type"] == "To Ask") ? 
+        <UserQuestionToAsk key={userQuestion._id} userQuestion={userQuestion} />
+      : <tr></tr>
     ));
   }
-  renderUserQuestions() {
+  renderUserQuestionsBehavioural() {
     return this.props.userQuestions.map((userQuestion) => (
-      <UserQuestion key={userQuestion._id} userQuestion={userQuestion} />
+      (userQuestion.question && userQuestion.question["type"] == "Behavioural") ?
+      <UserQuestionBehavioural key={userQuestion._id} userQuestion={userQuestion} />
+      : <tr></tr>
     ));
   }
 
@@ -43,14 +48,11 @@ export default class HomeTab extends Component {
           <thead>
             <tr>
               <th>Question</th>
-              <th>Creator</th>
-              <th>Stars</th>
-              <th>Type</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            { this.renderQuestions() }
+            {this.renderUserQuestionsToAsk() }
           </tbody>
         </Table>
 
@@ -61,10 +63,11 @@ export default class HomeTab extends Component {
               <th>QuestionId</th>
               <th>Answer</th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
-            { this.renderUserQuestions() }
+            { this.renderUserQuestionsBehavioural() }
           </tbody>
         </Table>
       </div>
