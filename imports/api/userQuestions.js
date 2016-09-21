@@ -34,6 +34,9 @@ Meteor.methods({
             owner: this.userId,
             username: Meteor.users.findOne(this.userId).username,
         });
+
+        //Also increases the star for the question
+        Meteor.call('questions.addStar', questionId);
     },
     'userQuestions.remove'(userQuestionId) {
         check(userQuestionId, String);

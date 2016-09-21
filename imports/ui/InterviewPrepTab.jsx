@@ -9,6 +9,7 @@ import { UserQuestions } from '../api/userQuestions.js';
 
 import Question from './Questions/Question.jsx';
 import AddQuestion from './Questions/AddQuestion.jsx';
+import SeeCommunityQuestions from './Questions/SeeCommunityQuestions.jsx';
 import UserQuestion from './UserQuestions/UserQuestion.jsx';
 import EditUserQuestion from './UserQuestions/EditUserQuestion.jsx';
 
@@ -37,6 +38,7 @@ export default class HomeTab extends Component {
         <br/>
 
         <AddQuestion />
+        <SeeCommunityQuestions questions={this.props.questions}/>
         <Table striped bordered condensed hover>
           <thead>
             <tr>

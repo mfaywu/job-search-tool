@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
+import { Button } from 'react-bootstrap';
 
 import { Questions } from '../../api/questions.js';
 
 // Task component - represents a single task
 export default class Question extends Component {
-  deleteThisQuestion() {
-    Meteor.call('questions.remove', this.props.question._id);
+  addThisQuestion() {
+    Meteor.call('userQuestions.insert', this.props.question._id, "");
   }
 
   nothing() {
@@ -21,9 +22,9 @@ export default class Question extends Component {
         <td>{this.props.question.stars.toString()}</td>    
         <td>{this.props.question.type}</td>
         <td>
-          <button className="delete" onClick={this.deleteThisQuestion.bind(this) }>
-            &times;
-          </button>
+          <Button bsStyle="info" onClick={this.addThisQuestion.bind(this) }>
+            Add
+          </Button>
         </td>
       </tr>
     );
