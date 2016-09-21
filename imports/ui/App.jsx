@@ -74,7 +74,7 @@ export default createContainer(() => {
   return {
     jobs: Jobs.find({}, { sort: { createdAt: -1 } }).fetch(),
     tasks: Tasks.find({}, { sort: { date: -1 } }).fetch(),
-    questions: Questions.find({}, { sort: { stars: -1 } }).fetch(),
+    questions: Questions.find({}, { sort: { createdAt: -1 } }).fetch(),
     userQuestions: UserQuestions.find({}, { sort: { createdAt: -1 } }).fetch(),
     currentUser: Meteor.user(),
   };
