@@ -40,6 +40,8 @@ Meteor.methods({
             text,
             date,
             jobId,
+            company,
+            done: false,
             createdAt: new Date(),
             owner: this.userId,
             username: Meteor.users.findOne(this.userId).username,
@@ -102,6 +104,7 @@ Meteor.methods({
             Tasks.update(taskId, {
                 $set: {
                     jobId: newId,
+                    company: company,
                 }
             })
         }
@@ -109,5 +112,19 @@ Meteor.methods({
             //delete old
             Meteor.call('jobs.removeTask', oldId, taskId);
         }
+    },
+    'tasks.changeDone'(taskId) {
+        check(taskId, String);
+
+        const task = Tasks.findOne(taskId);
+        if (!this.userId || task.owner != this.userId) {
+            throw new Meteor.Error('not-authorized');
+        }
+
+        Tasks.update(taskId, {
+            $set: {
+                done: !task.done,
+            }
+        });
     },
 });

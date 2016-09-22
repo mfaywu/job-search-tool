@@ -3,3 +3,6 @@
 
 
 Replacement for spreadsheets to aid in the job search!
+
+To test locally: 
+meteor test --driver-package practicalmeteor:mocha --port 3100

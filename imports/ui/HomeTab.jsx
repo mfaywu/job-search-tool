@@ -35,14 +35,15 @@ export default class HomeTab extends Component {
   render() {
     return (
       <div>
-        <br/>
-        <br/>
+        <h1>Tasks</h1>
         <AddTask />
         <Table striped bordered condensed hover>
           <thead>
             <tr>
+              <th>Done</th>
               <th>Task</th>
               <th>Do by</th>
+              <th>Company</th>
               <th></th>
             </tr>
           </thead>
@@ -51,6 +52,7 @@ export default class HomeTab extends Component {
           </tbody>
         </Table>
 
+        <h1>Jobs</h1>
         <AddJob />
         <Table striped bordered condensed hover>
           <thead>
