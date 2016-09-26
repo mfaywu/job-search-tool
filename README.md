@@ -6,3 +6,11 @@ Replacement for spreadsheets to aid in the job search!
 
 To test locally: 
 meteor test --driver-package practicalmeteor:mocha --port 3100
+
+## Relevant links
+
+Generating fake data: https://themeteorchef.com/snippets/generating-fake-data-with-faker/
+
+### Other interesting links
+
+https://scotch.io/tutorials/building-a-slack-clone-in-meteor-js-getting-started

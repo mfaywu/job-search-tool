@@ -29,12 +29,16 @@ Meteor.methods({
             throw new Meteor.Error('not-authorized');
         }
 
-        let job = Jobs.findOne({ company: company });
-        if (!job) {
-            Meteor.call('jobs.insert', company, '', '', 'Not Started', []);
+        let jobId = '';
+        let job;
+        if (company != '') {
             job = Jobs.findOne({ company: company });
+            if (!job) {
+                Meteor.call('jobs.insert', company, '', '', 'Not Started', []);
+                job = Jobs.findOne({ company: company });
+            }
+            jobId = job._id;
         }
-        const jobId = job._id;
 
         const taskId = Tasks.insert({
             text,
@@ -46,12 +50,16 @@ Meteor.methods({
             owner: this.userId,
             username: Meteor.users.findOne(this.userId).username,
         });
-        Meteor.call('jobs.addTask', job._id, taskId);
+
+        if (company != '') {
+            Meteor.call('jobs.addTask', job._id, taskId);
+        }
     },
     'tasks.remove'(taskId) {
         check(taskId, String);
 
         const task = Tasks.findOne(taskId);
+
         if (!this.userId || task.owner != this.userId) {
             throw new Meteor.Error('not-authorized to remove this task');
         }

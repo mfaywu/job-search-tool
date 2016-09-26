@@ -122,7 +122,7 @@ Meteor.methods({
             throw new Meteor.Error("no-job", "This job does not exist.");
         }
         if (!this.userId || job.owner != this.userId) {
-            throw new Meteor.Error('not-authorized jobs remove task');
+            throw new Meteor.Error('not-authorized jobs remove task from job');
         }
 
         const idx = job_tasks.indexOf(taskId);
