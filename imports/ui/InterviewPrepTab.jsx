@@ -44,6 +44,7 @@ export default class HomeTab extends Component {
 
         <AddQuestion />
         <SeeCommunityQuestions questions={this.props.questions}/>
+        <h1>Questions to Ask Your Interviewer</h1>
         <Table striped bordered condensed hover>
           <thead>
             <tr>
@@ -56,7 +57,7 @@ export default class HomeTab extends Component {
           </tbody>
         </Table>
 
-
+        <h1>Behavioural Interview Questions</h1>
         <Table striped bordered condensed hover>
           <thead>
             <tr>

@@ -51,7 +51,7 @@ Meteor.methods({
 
         //Remove all company's tasks from tasks[String]
         //Call Tasks to remove actual tasks
-        if(job.tasks) {
+        if (job.tasks) {
             for (let i = 0; i < job.tasks.length; i++) {
                 Tasks.remove(job.tasks[i]);
             }
@@ -82,7 +82,7 @@ Meteor.methods({
             }
         });
     },
-    'jobs.addTask'(jobId, taskId) { 
+    'jobs.addTask'(jobId, taskId) {
         //Only called by api/tasks.js
         check(jobId, String);
         check(taskId, String);
@@ -92,11 +92,11 @@ Meteor.methods({
         const job_tasks = job.tasks ? job.tasks : [];
         job_tasks.push(taskId);
 
-        if (!this.userId || job.owner != this.userId) {
-            throw new Meteor.Error('not-authorized');      
-        }
         if (!job) {
             throw new Meteor.Error("no-job", "This job does not exist.");
+        }
+        if (!this.userId || job.owner != this.userId) {
+            throw new Meteor.Error('not-authorized');
         }
         if (!task) {
             throw new Meteor.Error("no-task", "This task does not exist.");
@@ -108,7 +108,7 @@ Meteor.methods({
             }
         })
     },
-    'jobs.removeTask'(jobId, taskId) { 
+    'jobs.removeTask'(jobId, taskId) {
         //Only called by api/tasks.js
         //Deletes the taskId from tasks: [string]
         //Does not remove actual task from Tasks
@@ -118,11 +118,11 @@ Meteor.methods({
 
         const job = Jobs.findOne(jobId);
         const job_tasks = job.tasks ? job.tasks : [];
-        if (!this.userId || job.owner != this.userId) {
-            throw new Meteor.Error('not-authorized jobs remove task');
-        }
         if (!job) {
-            throw new Meteor.Error("no-job", "This job does not exist.");        
+            throw new Meteor.Error("no-job", "This job does not exist.");
+        }
+        if (!this.userId || job.owner != this.userId) {
+            throw new Meteor.Error('not-authorized jobs remove task from job');
         }
 
         const idx = job_tasks.indexOf(taskId);

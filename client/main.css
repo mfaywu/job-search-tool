@@ -12,3 +12,7 @@
   border: none;
   position: relative;
 }
+
+tr.done .text {
+  text-decoration: line-through;
+}
