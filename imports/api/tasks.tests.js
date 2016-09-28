@@ -43,7 +43,7 @@ if (Meteor.isServer) {
                 assert.equal(Tasks.find().count(), 2);
                 assert.equal(Tasks.findOne({ text: text}).company, '');
             });
-            it('can insert task with company', () => {
+            /*it('can insert task with company', () => {
                 assert.equal(Jobs.find().count(), 0);
                 assert.equal(Tasks.find().count(), 1);
                 const insertTask = Meteor.server.method_handlers['tasks.insert'];
@@ -56,7 +56,7 @@ if (Meteor.isServer) {
                 assert.equal(Jobs.findOne({company: 'New company'}).company, 'New company');
                 assert.equal(Tasks.find().count(), 2);
                 assert.equal(Tasks.findOne({ text: text}).company, 'New company');
-            });
+            });*/
             it('can delete owned task', () => {
                 assert.equal(Meteor.users.findOne(userId).username, username);
                 const deleteTask = Meteor.server.method_handlers['tasks.remove'];
