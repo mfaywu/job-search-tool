@@ -58,9 +58,12 @@ export default class HomeTab extends Component {
           <thead>
             <tr>
               <th>Company</th>
-              <th>Position</th>
-              <th>Location</th>
+              <th>Positions</th>
+              <th>Locations</th>
               <th>Tech Stack</th>
+              <th>Pros</th>
+              <th>Cons</th>
+              <th>Links</th>
               <th>State</th>
               <th></th>
               <th></th>

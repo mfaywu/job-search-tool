@@ -18,12 +18,15 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-    'jobs.insert'(company, position, location, state, tech_stack) {
+    'jobs.insert'(company, positions, locations, state, tech_stack, pros, cons, links) {
         check(company, String);
-        check(position, String);
-        check(location, String);
+        check(positions, [String]);
+        check(locations, [String]);
         check(state, String);
         check(tech_stack, [String]);
+        check(pros, [String]);
+        check(cons, [String]);
+        check(links, [String]);
 
         // Make sure the user is logged in before inserting a task
         if (!this.userId) {
@@ -32,10 +35,13 @@ Meteor.methods({
 
         Jobs.insert({
             company,
-            position,
-            location,
+            positions,
+            locations,
             state,
             tech_stack,
+            pros,
+            cons,
+            links,
             createdAt: new Date(),
             owner: this.userId,
             username: Meteor.users.findOne(this.userId).username,
@@ -59,13 +65,16 @@ Meteor.methods({
 
         Jobs.remove(jobId);
     },
-    'jobs.update'(jobId, company, position, location, state, tech_stack) {
+    'jobs.update'(jobId, company, positions, locations, state, tech_stack, pros, cons, links) {
         check(jobId, String);
         check(company, String);
-        check(position, String);
-        check(location, String);
+        check(positions, [String]);
+        check(locations, [String]);
         check(state, String);
         check(tech_stack, [String]);
+        check(pros, [String]);
+        check(cons, [String]);
+        check(links, [String]);
 
         const job = Jobs.findOne(jobId);
         if (!this.userId || job.owner != this.userId) {
@@ -75,10 +84,13 @@ Meteor.methods({
         Jobs.update(jobId, {
             $set: {
                 company,
-                position,
-                location,
+                positions,
+                locations,
                 state,
                 tech_stack,
+                pros,
+                cons,
+                links,
             }
         });
     },

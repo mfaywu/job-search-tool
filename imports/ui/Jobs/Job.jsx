@@ -28,9 +28,12 @@ export default class Job extends Component {
     return (
       <tr>
         <td>{this.props.job.company}</td>
-        <td>{this.props.job.position}</td>
-        <td>{this.props.job.location}</td>
+        <td><TagsInput disabled={true} value={this.props.job.positions ? this.props.job.positions : []} onChange={this.nothing.bind(this) }/></td>
+        <td><TagsInput disabled={true} value={this.props.job.locations ? this.props.job.locations : []} onChange={this.nothing.bind(this) }/></td>
         <td><TagsInput disabled={true} value={this.props.job.tech_stack ? this.props.job.tech_stack : []} onChange={this.nothing.bind(this) }/></td>
+        <td><TagsInput disabled={true} value={this.props.job.pros ? this.props.job.pros : []} onChange={this.nothing.bind(this) }/></td>
+        <td><TagsInput disabled={true} value={this.props.job.cons ? this.props.job.cons : []} onChange={this.nothing.bind(this) }/></td>
+        <td><TagsInput disabled={true} value={this.props.job.links ? this.props.job.links : []} onChange={this.nothing.bind(this) }/></td>
         <td>{this.props.job.state}</td>
         <td><EditJob job={this.props.job}/></td>
         <td>
