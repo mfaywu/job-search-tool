@@ -19,10 +19,13 @@ if (Meteor.isServer) {
                 Jobs.remove({});
                 jobId = Jobs.insert({
                     company: 'testCompany',
-                    position: 'testPosition',
-                    location: 'testLocation',
+                    positions: ['testPosition1', 'testPosition2'],
+                    locations: ['testLocation1', 'testLocation2'],
                     state: 'testState',
                     tech_stack: [],
+                    pros: ['location', 'salary'],
+                    cons: ['conTest'],
+                    links: ['http://job-search.meteorapp.com'],
                     createdAt: new Date(),
                     owner: userId,
                     username: username,
@@ -50,10 +53,13 @@ if (Meteor.isServer) {
                 const addJob = Meteor.server.method_handlers['jobs.insert'];
                 const invocation = { userId };
                 const inputs = ['addTest',
-                    'addPosition',
-                    'addLocation',
+                    ['addPosition1', 'addPosition2'],
+                    ['addLocation'],
                     'addState',
-                    []];
+                    [],
+                    [],
+                    [],
+                    [],];
                 addJob.apply(invocation, inputs);
 
                 assert.equal(Jobs.find().count(), 2);
@@ -71,24 +77,27 @@ if (Meteor.isServer) {
             //Tests for 'jobs.update'
             it('can update owned job', () => {
                 assert.equal(Jobs.findOne(jobId).company, 'testCompany');
-                assert.equal(Jobs.findOne(jobId).position, 'testPosition');
-                assert.equal(Jobs.findOne(jobId).location, 'testLocation');
+                assert.equal(Jobs.findOne(jobId).positions[0], 'testPosition1');
+                assert.equal(Jobs.findOne(jobId).locations[0], 'testLocation1');
                 assert.equal(Jobs.findOne(jobId).state, 'testState');
                 const updateJob = Meteor.server.method_handlers['jobs.update'];
                 const invocation = { userId };
                 const inputs = [jobId,
                     'newCompany',
-                    'newPosition',
-                    'newLocation',
+                    ['newPosition'],
+                    ['newLocation'],
                     'newState',
-                    ['JS']
+                    ['JS'],
+                    [],
+                    [],
+                    [],
                 ];
                 updateJob.apply(invocation, inputs);
 
                 assert.equal(Jobs.find().count(), 1);
                 assert.equal(Jobs.findOne(jobId).company, 'newCompany');
-                assert.equal(Jobs.findOne(jobId).position, 'newPosition');
-                assert.equal(Jobs.findOne(jobId).location, 'newLocation');
+                assert.equal(Jobs.findOne(jobId).positions[0], 'newPosition');
+                assert.equal(Jobs.findOne(jobId).locations[0], 'newLocation');
                 assert.equal(Jobs.findOne(jobId).state, 'newState');
                 assert.equal(Jobs.findOne(jobId).tech_stack[0], 'JS');
             });

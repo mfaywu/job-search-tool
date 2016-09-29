@@ -13,33 +13,82 @@ export default class AddJob extends Component {
 
         this.state = {
             display: false,
-            tags: [],
+            positions_tags: [],
+            locations_tags: [],
+            tech_stack_tags: [],
+            links_tags: [],
         };
     }
 
     close() {
-        this.setState({ display: false, tags: this.state.tags });
+        this.setState({ 
+            display: false, 
+            positions_tags: this.state.positions_tags,
+            locations_tags: this.state.locations_tags,
+            tech_stack_tags: this.state.tech_stack_tags,
+            links_tags: this.state.links_tags,
+         });
     }
 
     open() {
-        this.setState({ display: true, tags: this.state.tags });
+        this.setState({ 
+            display: true, 
+            positions_tags: this.state.positions_tags,
+            locations_tags: this.state.locations_tags,
+            tech_stack_tags: this.state.tech_stack_tags,
+            links_tags: this.state.links_tags, 
+        });
     }
 
     handleSubmit(event) {
         event.preventDefault();
 
         const company = ReactDOM.findDOMNode(this.refs.companyInput).value.trim();
-        const position = ReactDOM.findDOMNode(this.refs.positionInput).value.trim();
-        const location = ReactDOM.findDOMNode(this.refs.locationInput).value.trim();
+        const positions = this.state.positions_tags;
+        const locations = this.state.locations_tags;
         const state = ReactDOM.findDOMNode(this.refs.stateInput).value.trim();
-        const tech_stack = this.state.tags;
+        const tech_stack = this.state.tech_stack_tags;
+        const links = this.state.links_tags;
 
-        Meteor.call('jobs.insert', company, position, location, state, tech_stack);
+        Meteor.call('jobs.insert', company, positions, locations, state, tech_stack, [], [], links);
 
         this.close();
     }
-    changeTags(tags) {
-        this.setState( {display: this.state.display, tags: tags});
+    changePositionsTags(tags) {
+        this.setState( {
+            display: this.state.display, 
+            positions_tags: tags,
+            locations_tags: this.state.locations_tags,
+            tech_stack_tags: this.state.tech_stack_tags,
+            links_tags: this.state.links_tags,
+        });
+    }
+    changeLocationsTags(tags) {
+        this.setState( {
+            display: this.state.display, 
+            positions_tags: this.state.positions_tags,
+            locations_tags: tags,
+            tech_stack_tags: this.state.tech_stack_tags,
+            links_tags: this.state.links_tags,
+        });
+    }
+    changeTechStackTags(tags) {
+        this.setState( {
+            display: this.state.display, 
+            positions_tags: this.state.positions_tags,
+            locations_tags: this.state.locations_tags,
+            tech_stack_tags: tags,
+            links_tags: this.state.links_tags,
+        });
+    }
+    changeLinksTags(tags) {
+        this.setState( {
+            display: this.state.display, 
+            positions_tags: this.state.positions_tags,
+            locations_tags: this.state.locations_tags,
+            tech_stack_tags: this.state.tech_stack_tags,
+            links_tags: tags,
+        });
     }
 
     render() {
@@ -56,16 +105,20 @@ export default class AddJob extends Component {
                                 <FormControl ref="companyInput" type="text" placeholder="Name" />
                             </FormGroup>
                             <FormGroup>
-                                <ControlLabel>Position</ControlLabel>
-                                <FormControl ref="positionInput" type="text" placeholder="Title" />
+                                <ControlLabel>Positions</ControlLabel>
+                                <TagsInput value={this.state.positions_tags ? this.state.positions_tags : []} onChange={this.changePositionsTags.bind(this)}/>
                             </FormGroup>
                             <FormGroup>
-                                <ControlLabel>Location</ControlLabel>
-                                <FormControl ref="locationInput" type="text" placeholder="City, State" />
+                                <ControlLabel>Locations</ControlLabel>
+                                <TagsInput value={this.state.locations_tags ? this.state.locations_tags : []} onChange={this.changeLocationsTags.bind(this)}/>
                             </FormGroup>
                             <FormGroup>
                                 <ControlLabel>Tech Stack</ControlLabel>
-                                <TagsInput value={this.state.tags ? this.state.tags : []} onChange={this.changeTags.bind(this)}/>
+                                <TagsInput value={this.state.tech_stack_tags ? this.state.tech_stack_tags : []} onChange={this.changeTechStackTags.bind(this)}/>
+                            </FormGroup>
+                            <FormGroup>
+                                <ControlLabel>Links</ControlLabel>
+                                <TagsInput value={this.state.links_tags ? this.state.links_tags : []} onChange={this.changeLinksTags.bind(this)}/>
                             </FormGroup>
                             <FormGroup>
                                 <ControlLabel>State</ControlLabel>
