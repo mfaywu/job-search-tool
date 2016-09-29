@@ -24,3 +24,5 @@ accounts-password
 accounts-ui
 practicalmeteor:mocha
 dispatch:mocha-phantomjs
+accounts-facebook
+accounts-github
